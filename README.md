@@ -28,7 +28,6 @@ node \
 Then you can import `.svelte` files using `import` statements:
 
 ```
-// The ESM way
 import App from './App.svelte'
 
 const output = App.render(...)
