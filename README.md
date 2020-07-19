@@ -24,7 +24,7 @@ node \
   src/server.js
 ```
 
-Then you can import `.svelte` files with `import` statements`
+Then you can import `.svelte` files using `import` statements:
 
 ```
 // The ESM way
