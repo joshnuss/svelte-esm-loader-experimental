@@ -1,6 +1,7 @@
 # Exerimental ES module loader for Svelte
 
-Svelte ships with the ability to import `.svelte` files. Currently it only works with `commonjs`. This is an experiment to add support for esm's `import` syntax as well.
+Svelte ships with the ability to import `.svelte` files using `commonjs`'s `require` syntax.
+This is an experiment to add support for esm's `import` syntax as well.
 
 ## CommonJS
 
