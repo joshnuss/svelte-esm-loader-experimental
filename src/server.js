@@ -3,7 +3,7 @@ import App from './App.svelte'
 
 polka()
   .get('/', (req, res) => {
-    const { html } = App.render()
+    const { html } = App.render({name: "World"})
 
     res.end(html)
   })
