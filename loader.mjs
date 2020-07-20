@@ -28,24 +28,29 @@ export async function getSource(href, context, defaultGetSource) {
   const url = new URL(href)
 
   if (url.protocol === "file:" && path.extname(href) === '.svelte') {
-    const source = fs.readFileSync(url.pathname, 'utf8')
-    const output = compiler.compile(source, {
-      generate: 'ssr',
-      format: 'esm'
-    })
+    const source = compile(url.pathname)
 
-    let code = output.js.code
-
-    /*
-     * UGLY hack.
-     * Without it you get error
-     * Directory import '.../node_modules/svelte/internal' is not supported resolving ES modules,
-     */
-    code = code.replace('from "svelte/internal";',
-      'from "svelte/internal/index.mjs";')
-
-    return { source: code }
+    return { source: adjustImports(source) }
   }
 
   return defaultGetSource(href, context, defaultGetSource)
+}
+
+function compile(path) {
+  const source = fs.readFileSync(path, 'utf8')
+  const output = compiler.compile(source, {
+    generate: 'ssr',
+    format: 'esm'
+  })
+
+  return output.js.code
+}
+
+/*
+ * UGLY hack.
+ * Without it it gives error:
+ * "Directory import '.../node_modules/svelte/internal' is not supported resolving ES modules"
+ */
+function adjustImports(source) {
+  return source.replace('from "svelte/internal";', 'from "svelte/internal/index.mjs";')
 }
