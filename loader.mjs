@@ -41,8 +41,8 @@ export async function getSource(href, context, defaultGetSource) {
      * Without it you get error
      * Directory import '.../node_modules/svelte/internal' is not supported resolving ES modules,
      */
-    code = code.replace('import { create_ssr_component } from "svelte/internal";',
-      'import { create_ssr_component } from "svelte/internal/index.mjs"')
+    code = code.replace('from "svelte/internal";',
+      'from "svelte/internal/index.mjs";')
 
     return { source: code }
   }
